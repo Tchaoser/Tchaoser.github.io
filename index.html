@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucentis Vision Center</title>
+    <style>
+        :root {
+            --primary-color: #64539E;
+            --secondary-color: #D9CFE3;
+            --background-color: #F3F3F3;
+            --text-color: #1E1E1E;
+            --accent-color: #A2C5D2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--background-color);
+            color: var(--primary-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            caret-color: transparent;
+        }
+
+        #CompanyName {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 0 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .navitems {
+            display: flex;
+            gap: 10px;
+            margin-right: 40px;
+            align-items: center;
+            padding-bottom: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 500;
+            width: 140px;
+            height: 40px;
+            margin: 10px 0;
+            padding: 5px;
+            background: var(--secondary-color);
+            text-align: center;
+            border-radius: 5px;
+            color: var(--primary-color);
+            font-size: 1rem;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav:hover, .nav:focus {
+            background: #c5b6d6;
+            color: rgb(61, 56, 88);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: var(--secondary-color);
+            padding: 15px 30px;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .tab-section {
+            display: none;
+            background: var(--background-color);
+            flex: 1;
+            color: var(--text-color);
+            padding: 30px;
+        }
+
+        .tab-section.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease;
+        }
+
+        footer {
+            background: var(--secondary-color);
+            padding: 25px;
+            text-align: center;
+            margin-top: auto;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--primary-color);
+            margin-right: 20px;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .faq_box {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .faq_box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .faq_box h4 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .faq_box p {
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        #doctor {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        #about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        #mon_div {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        #mon_div h1 {
+            margin-top: 20px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        #mon_div h4 {
+            margin-top: 0;
+            color: #7a6a9e;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        #explanation {
+            flex: 2;
+            min-width: 300px;
+            max-width: 700px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        #explanation div {
+            margin-bottom: 25px;
+            background: rgba(217, 207, 227, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        #faq {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .tab-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        /* Animation for tab switching */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1088px) {
+            .navitems {
+                position: fixed;
+                top: 90px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: var(--secondary-color);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                flex-direction: column;
+                padding: 10px 0 20px;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            .navitems.show {
+                max-height: 500px;
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav {
+                width: 90%;
+                margin: 8px auto;
+                font-size: 1.1rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            #CompanyName {
+                font-size: 1.5rem;
+                margin: 0 10px;
+            }
+            
+            .tab-section {
+                padding: 20px 15px;
+            }
+            
+            #about-content {
+                padding: 10px;
+                gap: 30px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            #faq {
+                padding: 10px;
+                gap: 15px;
+            }
+            
+            .faq_box {
+                padding: 15px;
+            }
+            
+            #explanation div {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                width: 95%;
+                height: 45px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            #mon_div h1 {
+                font-size: 1.5rem;
+            }
+            
+            #explanation {
+                font-size: 1rem;
+            }
+            
+            footer {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Content for other sections */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #534482;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="CompanyName">Lucentis</h1>
+        <button class="menu-toggle" id="menuToggle">&#9776;</button>
+        <div class="navitems" id="navItems">
+            <button class="nav" data-target="about">About</button>
+            <button class="nav" data-target="services">Services</button>
+            <button class="nav" data-target="eyewear">Eyewear</button>
+            <button class="nav" data-target="lenses">Contact Lenses</button>
+            <button class="nav" data-target="faq">FAQ</button>
+            <button class="nav" data-target="contact">Contact Us</button>
+        </div>
+    </header>
+
+    <section id="about" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">About Our Practice</h2>
+            <div id="about-content">
+                <div id="mon_div">
+                    <img src="/images/monica.jpg" id="doctor" alt="Dr. Monica Udaykumar">
+                    <h1>Dr. Monica Udaykumar, OD</h1>
+                    <h4>Founder & Lead Optometrist</h4>
+                </div>
+
+                <div id="explanation">
+                    <div>
+                        <p>Dr. Monica Udaykumar is the founder and lead optometrist of Lucentis Vision, where modern clinical care meets genuine, personalized service. She earned her Doctor of Optometry degree from the Pennsylvania College of Optometry.</p>
+                        <p>She has learned from the best in Palo Alto Veteran Affairs Hospital and also completed special training in Specialty contact lenses such as: Sclerals, Hybrids and Rigid Gas Permeable lenses.</p>
+                    </div>
+                    <div>
+                        <p>After years in fast-paced corporate clinics, Dr. Udaykumar envisioned something more meaningful: a space where patients are never rushed, care is never cookie-cutter, and clear vision is paired with warmth and honesty.</p>
+                        <p>At Lucentis Vision, she offers advanced diagnostics, thoughtful treatment plans, and a fresh, curated optical experience—all designed around your lifestyle and your goals.</p>
+                    </div>
+                    <div>
+                        <p>She is especially passionate about educating patients on their eye health, managing binocular vision concerns, and making quality care more accessible to all communities.</p>
+                        <p>Outside the clinic, Monica enjoys painting in watercolor, exploring Toronto’s neighborhoods, and sharing wellness and eye care tips with her online community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Comprehensive Eye Exams</h3>
+                    <p>Thorough evaluation of your eye health and vision needs using the latest diagnostic technology.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Contact Lens Fittings</h3>
+                    <p>Specialized fittings for all types of contact lenses including specialty lenses for complex prescriptions.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Pediatric Eye Care</h3>
+                    <p>Child-friendly exams to detect and treat vision problems early in development.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Dry Eye Treatment</h3>
+                    <p>Advanced solutions for dry, irritated eyes using the latest therapeutic approaches.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Emergency Eye Care</h3>
+                    <p>Prompt attention for eye injuries, infections, and sudden vision changes.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Vision Therapy</h3>
+                    <p>Customized programs to improve visual skills and correct vision problems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="eyewear" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">Eyewear Collection</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>Discover our carefully curated collection of eyewear from leading designers around the world. Each frame is selected for its quality, style, and comfort.</p>
+                <div style="margin: 40px 0; background: #D9CFE3; padding: 30px; border-radius: 12px;">
+                    <h3>New Collection Coming Soon</h3>
+                    <p>Our Spring 2024 collection arrives next month featuring sustainable materials and innovative designs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="lenses" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">Contact Lenses</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Daily Disposables</h3>
+                    <p>Convenient, hygienic lenses perfect for occasional wear or those with allergies.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Monthly Lenses</h3>
+                    <p>Cost-effective solution with excellent comfort for everyday wear.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Toric Lenses</h3>
+                    <p>Specialized lenses designed to correct astigmatism with precision.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Multifocal Lenses</h3>
+                    <p>Clear vision at all distances without the need for reading glasses.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Scleral Lenses</h3>
+                    <p>Advanced solution for irregular corneas, dry eyes, and complex prescriptions.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Colored Lenses</h3>
+                    <p>Enhance or completely change your eye color with our cosmetic options.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div id="faq">
+                <div class="faq_box">
+                    <h4>How often should I get my eyes checked?</h4>
+                    <p>Children (1-4): At least one eye exam before starting school<br> 
+                    Children (Ages 5-18): Once a year<br> 
+                    Seniors (Ages 65+): Once a year<br>
+                    Adults (19-65): Every two years</p>
+                </div>
+                <div class="faq_box">
+                    <h4>Do you bill insurance directly?</h4>
+                    <p>Yes, we accept most major insurance plans. Please check the list of insurances we accept HERE.</p>
+                </div>
+                <div class="faq_box">
+                    <h4>Will you dilate my eyes?</h4>
+                    <p>Dilation is recommended for comprehensive exams to fully evaluate eye health. Please bring sunglasses as your eyes may be light-sensitive afterward.</p>
+                </div>
+                <div class="faq_box">
+                    <h4>How long does an exam take?</h4>
+                    <p>A comprehensive exam typically takes 60-90 minutes. We never rush appointments and allow time to answer all your questions.</p>
+                </div>
+                <div class="faq_box">
+                    <h4>Do I need a separate contact lens exam?</h4>
+                    <p>Yes, contact lens fittings require additional measurements and evaluations beyond a standard eye exam.</p>
+                </div>
+                <div class="faq_box">
+                    <h4>What if I need a prescription refill?</h4>
+                    <p>We can provide prescription renewals for up to 2 years after your last exam, depending on your eye health history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="tab-section active">
+        <div class="tab-content">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject">
+                            <option value="">Select a reason for contacting</option>
+                            <option value="appointment">Schedule an Appointment</option>
+                            <option value="question">General Question</option>
+                            <option value="billing">Billing Inquiry</option>
+                            <option value="feedback">Feedback/Suggestion</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="How can we help you?"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="margin-top: 0; color: var(--primary-color);">Lucentis Vision</h3>
+                    <p>Providing exceptional eye care with a personal touch since 2018.</p>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <h4 style="margin-top: 0; color: var(--primary-color);">Hours</h4>
+                    <p>Monday-Friday: 9am - 6pm<br>
+                    Saturday: 10am - 4pm<br>
+                    Sunday: Closed</p>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <h4 style="margin-top: 0; color: var(--primary-color);">Contact</h4>
+                    <p>123 Vision Street<br>
+                    Toronto, ON M5V 2T6<br>
+                    Phone: (416) 555-0123<br>
+                    Email: info@lucentisvision.com</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px; text-align: center; padding-top: 20px; border-top: 1px solid rgba(100, 83, 158, 0.2);">
+                <p>&copy; 2025 Lucentis Vision. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const tabs = document.querySelectorAll('.nav');
+        const sections = document.querySelectorAll('.tab-section');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.getElementById('navItems');
+
+        // Function to switch tabs
+        function switchTab(targetId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                // Scroll to top of the section
+                window.scrollTo(0, 0);
+            }
+            
+            // Hide menu on mobile after selection
+            navItems.classList.remove('show');
+        }
+
+        // Add click event to each tab
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-target');
+                switchTab(targetId);
+            });
+        });
+
+        // Toggle mobile menu
+        menuToggle.addEventListener('click', () => {
+            navItems.classList.toggle('show');
+        });
+
+        // Hide menu when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1088 && 
+                !e.target.closest('#navItems') && 
+                !e.target.closest('#menuToggle') &&
+                navItems.classList.contains('show')) {
+                navItems.classList.remove('show');
+            }
+        });
+
+        // Close menu when resizing to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1088) {
+                navItems.classList.remove('show');
+            }
+        });
+
+        // Set initial active tab
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide all sections except active
+            sections.forEach(section => {
+                if (!section.classList.contains('active')) {
+                    section.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
